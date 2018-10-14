@@ -1,4 +1,4 @@
-package com.nautilusapps;
+package com.novalex;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

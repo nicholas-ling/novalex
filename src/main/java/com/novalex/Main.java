@@ -1,6 +1,5 @@
-package com.nautilusapps.com.novalex;
+package com.novalex;
 
-import com.nautilusapps.ItemLookUp;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;

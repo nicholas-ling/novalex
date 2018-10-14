@@ -1,4 +1,4 @@
-package com.nautilusapps;
+package com.novalex;
 
 import java.io.IOException;
 import java.util.ArrayList;
