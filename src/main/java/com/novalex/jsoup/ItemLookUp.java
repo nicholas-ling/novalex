@@ -1,6 +1,10 @@
-package com.novalex;
+package com.novalex.jsoup;
 
 import java.io.IOException;
+import java.net.Authenticator;
+import java.net.InetSocketAddress;
+import java.net.PasswordAuthentication;
+import java.net.Proxy;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -50,16 +54,28 @@ public class ItemLookUp {
      * @throws IOException  If the connection failed.
      */
     public ItemLookUp(String url) throws IOException {
+      this.documents = new ArrayList<Document>();
+      Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("proxy.crawlera.com", 8010)); // or whatever your proxy is
+      final String authUser = "977a9cd01e5745268e2ed879826d70f3";
+      final String authPassword = "";
+      Authenticator.setDefault(
+          new Authenticator() {
+            @Override
+            public PasswordAuthentication getPasswordAuthentication() {
+              return new PasswordAuthentication(
+                  authUser, authPassword.toCharArray());
+            }
+          }
+      );
+      System.setProperty("http.proxyUser", authUser);
+      System.setProperty("http.proxyPassword", authPassword);
+      Document document = Jsoup.connect(url)
+        .proxy(proxy)
+        .userAgent(this.USER_AGENT)
+        .referrer(this.REFERRER)
+        .get();
 
-        this.documents = new ArrayList<Document>();
-
-        Document document = Jsoup.connect(url)
-                .userAgent(this.USER_AGENT)
-                .referrer(this.REFERRER)
-                .get();
-
-        documents.add(document);
-
+      documents.add(document);
     }
 
     /**

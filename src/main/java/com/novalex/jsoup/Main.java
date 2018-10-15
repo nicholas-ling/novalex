@@ -1,9 +1,11 @@
-package com.novalex;
+package com.novalex.jsoup;
 
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
+import java.net.Authenticator;
+import java.net.PasswordAuthentication;
 import java.util.LinkedList;
 import java.util.List;
 import org.apache.commons.csv.CSVFormat;
@@ -18,6 +20,22 @@ public class Main {
   public static int counter = 0;
 
   public static void main(String[] args) throws IOException, InterruptedException {
+
+    final String authUser = "977a9cd01e5745268e2ed879826d70f3";
+    final String authPassword = "";
+    Authenticator.setDefault(
+        new Authenticator() {
+          @Override
+          public PasswordAuthentication getPasswordAuthentication() {
+            return new PasswordAuthentication(
+                authUser, authPassword.toCharArray());
+          }
+        }
+    );
+    System.setProperty("http.proxyUser", authUser);
+    System.setProperty("http.proxyPassword", authPassword);
+
+//    System.setProperty("javax.net.ssl.trustStore","/Library/Java/JavaVirtualMachines/jdk1.8.0_162.jdk/Contents/Home/jre/lib/security/cacerts");
     FileWriter out = new FileWriter("book_new.csv");
     CSVPrinter printer = new CSVPrinter(out, CSVFormat.DEFAULT);
     print(printer);
