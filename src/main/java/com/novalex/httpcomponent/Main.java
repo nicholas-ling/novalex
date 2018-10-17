@@ -17,14 +17,14 @@ public class Main {
 
   public static void main(String[] args) throws Exception {
     proxy = new ClientProxyAuthentication();
-    FileWriter out = new FileWriter("book_new.csv");
+    FileWriter out = new FileWriter("resources/result.csv");
     CSVPrinter printer = new CSVPrinter(out, CSVFormat.DEFAULT);
     print(printer);
   }
 
 
   public static void print(CSVPrinter printer) throws Exception {
-    Reader in = new FileReader("/Users/nling/Downloads/MANFILTER.csv");
+    Reader in = new FileReader("resources/raw.csv");
     Iterable<CSVRecord> records = CSVFormat.DEFAULT.parse(in);
     int i = 0;
     for (CSVRecord record : records) {
